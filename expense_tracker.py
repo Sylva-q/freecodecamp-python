@@ -1,4 +1,11 @@
 #Explore the power of Lambda Functions by creating an expense tracker.#
+#learning summary:
+#1. lambda x: expression, a concise way to represent a function that can take any number of arguments, but can only have one expression.
+#2. map(function, iterable), applies a given function to all items in an input list (or any iterable).
+#3. The filter() function constructs an iterator from elements of an iterable for which a function returns true.
+#4. while True: creates an infinite loop that continues until a break statement is encountered.
+#5. f-string is a way to create strings that can directly include variables or expressions inside the string.
+#6. if and elif practice.
 
 def add_expense(expenses, amount, category):
     expenses.append({'amount': amount, 'category': category})
