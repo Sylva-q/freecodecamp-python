@@ -30,11 +30,7 @@ def arithmetic_arranger(problems, show_answers=False):
         second_line.append(op + right.rjust(width - 1))
         dashes.append('-' * width)
 
-        if show_answers:
-            if op == '+':
-                result = str(int(left) + int(right))
-            else:
-                result = str(int(left) - int(right))
+        result = eval(left + op + right)
             results.append(result.rjust(width))
 
     # 组装输出
