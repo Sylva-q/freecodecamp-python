@@ -1,47 +1,48 @@
 def arithmetic_arranger(problems, show_answers=False):
-    #build up the 4-row structure for the result
-    row1 = []
-    row2 = []
-    row3 = []
-    row4 = []
-    #check if there are more than  problems
     if len(problems) > 5:
-        return 'Error: Too many problems.'
-    else:
-    #Using for loop to split operation elements
-        for x in problems:
-            left, op, right = x.split()
+        return "Error: Too many problems."
 
-        #Checck if exist / or * operation
-            if '*' in x or '/' in x:
-                return "Error: Operator must be '+' or '-'." 
-        #Checck if each operand is digit
-            elif left.isdigit() == 0 or right.isdigit() == 0:
-                return 'Error: Numbers must only contain digits.'
-        #Checck if each operand is more than 4 digits
-            elif len(left) > 4 or len(right) > 4:
-                return 'Error: Numbers cannot be more than four digits.'
-        #when problems are in the right format, show the result
-            else:
-            #decide the width of the answer
-                width = max(len(left), len(right)) + 2
-            #the first row
-                row1.append(f'{left:>{width}s}')
-            #the second row
-                width2 = width - 1
-                row2.append(op + f'{right:>{width2}s}')
-            #the third row
-                row3.append('-' * width)
-            #the fourth row
-                answer = str(eval(left + op + right))
-                row4.append(f'{answer:>{width}s}')
-        #Now 4 rows are ready to be arranged
-        arranged = '    '.join(row1) + '\n' + \
-                    '    '.join(row2) + '\n' + \
-                    '    '.join(row3)
+    first_line = []
+    second_line = []
+    dashes = []
+    results = []
+
+    for problem in problems:
+        left, op, right = problem.split()
+
+        # 检查运算符
+        if op not in ['+', '-']:
+            return "Error: Operator must be '+' or '-'."
+
+        # 检查是不是数字
+        if not left.isdigit() or not right.isdigit():
+            return "Error: Numbers must only contain digits."
+
+        # 检查位数
+        if len(left) > 4 or len(right) > 4:
+            return "Error: Numbers cannot be more than four digits."
+
+        # 确定宽度
+        width = max(len(left), len(right)) + 2
+
+        # 构造各行
+        first_line.append(left.rjust(width))
+        second_line.append(op + right.rjust(width - 1))
+        dashes.append('-' * width)
+
         if show_answers:
-            arranged += '\n' + '    '.join(row4)
-    
-        return arranged
+            if op == '+':
+                result = str(int(left) + int(right))
+            else:
+                result = str(int(left) - int(right))
+            results.append(result.rjust(width))
 
-print(f'\n{arithmetic_arranger(["24 + 85215", "3801 - 2", "45 + 43", "123 + 49"])}')
+    # 组装输出
+    arranged = '    '.join(first_line) + '\n' + \
+               '    '.join(second_line) + '\n' + \
+               '    '.join(dashes)
+    if show_answers:
+        arranged += '\n' + '    '.join(results)
+
+    return arranged
+
